@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="UsingDynamicDll.cpp">
+    <ClCompile Include="Dllinjector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -12,26 +12,26 @@ void ReplaceString(DWORD processPid, const char* replacedString, const char* rep
         GetSystemInfo(&si);
         MEMORY_BASIC_INFORMATION info;
         std::vector<char> procMem;
-        char* p = 0;
-        while (p < si.lpMaximumApplicationAddress)
+        char* border = 0;
+        while (border < si.lpMaximumApplicationAddress)
         {
-            if (VirtualQueryEx(process, p, &info, sizeof(info)) == sizeof(info))
+            if (VirtualQueryEx(process, border, &info, sizeof(info)))
             {
                 if (info.State == MEM_COMMIT && info.AllocationProtect == PAGE_READWRITE)
                 {
-                    p = (char*)info.BaseAddress;
+                    border = (char*)info.BaseAddress;
                     procMem.resize(info.RegionSize);
                     SIZE_T bytesRead;
                     try
                     {
-                        if (ReadProcessMemory(process, p, &procMem[0], info.RegionSize, &bytesRead))
+                        if (ReadProcessMemory(process, border, &procMem[0], info.RegionSize, &bytesRead))
                         {
                             for (size_t i = 0; i < (bytesRead - strlen(replacedString)); ++i)
                             {
                                 int len = strlen(replacedString);
-                                if ((memcmp(replacedString, &procMem[i], len) == 0) && (replacedString != (char*)p + i))
+                                if ((memcmp(replacedString, &procMem[i], len) == 0) && (replacedString != (char*)border + i))
                                 {
-                                    char* ref = (char*)p + i;
+                                    char* ref = (char*)border + i;
 
                                     for (int j = 0; j < strlen(replacementString); j++)
                                         ref[j] = replacementString[j];
@@ -46,7 +46,8 @@ void ReplaceString(DWORD processPid, const char* replacedString, const char* rep
 
                     }
                 }
-                p += info.RegionSize;
+
+                border += info.RegionSize;
             }
         }
     }

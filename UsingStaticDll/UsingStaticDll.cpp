@@ -5,7 +5,6 @@
 
 #include "Dll.h"
 
-
 DWORD GetProcessIdByName(const char* processName)
 {
 	DWORD processId = 0;
@@ -31,10 +30,11 @@ DWORD GetProcessIdByName(const char* processName)
 
 int main()
 {
-	std::string oldString = "Aaaaaaa";
+	std::string oldString = "Aaaaaaxxxxa";
+	std::string oldString1 = "Aaaaaaxxxxa";
 	std::string newString = "Hello ddddd";
-    std::cout << "Start \"abc\" value: " << oldString << std::endl;
-    ReplaceString(GetProcessIdByName("UsingStaticDll.exe"), "Aaaaaaa", newString.c_str());
-    //std::wcout << "End \"abc\" value: " << abc << std::endl;
+    std::cout << "Start \"oldString\" value: " << oldString1 << std::endl;
+    ReplaceString(GetProcessIdByName("UsingStaticDll.exe"), oldString.c_str(), newString.c_str());
+    std::cout << "End \"oldString\" value: " << oldString1 << std::endl;
     return 0;
 }
