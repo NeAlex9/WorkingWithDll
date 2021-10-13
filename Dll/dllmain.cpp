@@ -39,12 +39,6 @@ DWORD GetProcessIdByName(const char* processName)
     case DLL_PROCESS_ATTACH:
     case DLL_THREAD_ATTACH:
         ReplaceString(GetProcessIdByName("ProcessToInjectInto.exe"), "Hello World!", "Hello dddsdd");
-        //std::ofstream fout("outputttttttt.txt");
-        //auto end = std::chrono::system_clock::now();
-        //std::time_t end_time = std::chrono::system_clock::to_time_t(end);
-        /*fout << "Running replace at " << end_time;
-        fout.flush();
-        fout.close();*/
         break;
     case DLL_THREAD_DETACH:
     case DLL_PROCESS_DETACH:
